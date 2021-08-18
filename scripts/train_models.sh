@@ -42,3 +42,5 @@ SCRATCHPATH='/scratch/users/hmei2@jhu.edu'
 export M_ID=$((${SLURM_ARRAY_TASK_ID}-1))
 export THEANO_FLAGS="device=gpu"
 python train_models.py -fd ./data/data_$dataname/ -m $model -me $maxepoch -d $dimlstm -tr $trainratio -mt 1 -md 10 -sb $sizebatch -tp $trackperiod -ps $prune -s $seed > $jobname.out
+
+python train

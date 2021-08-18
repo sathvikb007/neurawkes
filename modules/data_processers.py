@@ -29,8 +29,10 @@ class DataProcesser(object):
     this class process raw data into the model-friendly format
     and save them when neccessary
     '''
+    
     def __init__(self, settings):
         #
+        print('>>inside data_processors.py DataProcessor Class')
         print "initialize the data processer ... "
         self.path_rawdata = os.path.abspath(
             settings['path_rawdata']

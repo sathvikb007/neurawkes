@@ -367,6 +367,7 @@ class ControlNeuralHawkesAdaptiveBaseCTSM_time(object):
         )
         #
         #
+        print('>> settings[\'model\'] = {}'.format(settings['model']))
         if settings['model'] == 'neuraladapttime':
             self.hawkes_ctsm = models.NeuralHawkesAdaptiveBaseCTSM_time(
                 settings
@@ -395,6 +396,7 @@ class ControlNeuralHawkesAdaptiveBaseCTSM_time(object):
         )
         #
         if settings['loss_type'] == 'loglikehood':
+            print ">> back in controllers.py"
             print "train with log-likelihood ... "
             self.hawkes_ctsm.compute_loss(
                 #self.seq_time_to_end,

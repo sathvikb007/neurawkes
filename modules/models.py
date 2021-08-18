@@ -586,11 +586,13 @@ class NeuralHawkesCTLSTM(object):
     '''
     #
     def __init__(self, settings):
+        print(">> inside models NeuralHawkesCTLSTM class")
         self.size_batch = settings['size_batch']
         self.coef_l2 = settings['coef_l2']
         #
         #
         print "initializing Neural Hawkes with Continuous-time LSTM ... "
+        print ('>> settings[\'path_pre_train\'] = {}'.format(settings['path_pre_train']))
         if settings['path_pre_train'] == None:
             self.dim_process = settings['dim_process']
             self.dim_time = settings['dim_time']
@@ -858,6 +860,7 @@ class NeuralHawkesCTLSTM(object):
         seq_sims_mask : N * size_batch -- 1/0
         Warning: There is overlap between seq_time_values and seq_time_to_current, so in this function, we happen not to use both. So we need to put on_unused_input='warn' in theano.function to avoid error message.
         '''
+        print ">> In models.NeuralHawkesCTLSTM.compute_loss()"
         print "computing loss function of Neural Hawkes model with continuous-time LSTM ... "
         #
         # we first process the past history of events with LSTM

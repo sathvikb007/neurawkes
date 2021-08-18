@@ -24,7 +24,7 @@ import modules.models as models
 import modules.optimizers as optimizers
 import modules.controllers as controllers
 import modules.data_processers as data_processers
-
+import warnings; warnings.filterwarnings('ignore')
 import run_models
 import datetime
 
@@ -249,6 +249,10 @@ def main():
         tag_track = '_bookorder'
     elif '_missing' in args.FileData:
         tag_track = '_missing'
+    elif 'pois' in args.FileData:
+        tag_track = '_pois'
+    elif 'epic' in args.FileData:
+        tag_track = '_epic'
     else:
         tag_track = ''
     #
@@ -268,6 +272,7 @@ def main():
     #
     #
     ## show values ##
+    print ("Path of save is {}".format(path_save))
     print ("PID is : %s" % str(id_process) )
     print ("TIME is : %s" % time_current )
     print ("Seed is : %s" % str(args.Seed) )
@@ -404,6 +409,7 @@ def main():
             input_train, tag_neural_type = 'general'
         )
     elif args.Model == 'neuraladapttime' or args.Model == 'neuraladapttimescale' or args.Model == 'neuralreduce' or args.Model == 'conttime':
+        print('args.model is {}'.format(args.Model))
         if args.DevIncludedSetting:
             run_models.train_generalized_neural_hawkes_ctsm_time_DevIncludedSetting(
                 input_train, tag_neural_type = 'adaptive'

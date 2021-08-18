@@ -307,6 +307,15 @@ def main():
     #
     if 'data_conttime' in input_test['path_rawdata']:
         tag_data = 'conttime'
+    if 'data_pois' in input_test['path_rawdata']:
+        tag_data = 'pois'
+        print('tag_data: {}'.format(tag_data))
+    if 'data_epic' in input_test['path_rawdata']:
+        tag_data = 'epic'
+        print('tag_data: {}'.format(tag_data))
+    if 'data_sim' in input_test['path_rawdata']:
+        tag_data = 'sim'
+    
     #
     name_model = 'results_Model='+input_test[
         'args'

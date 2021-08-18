@@ -1182,6 +1182,7 @@ def train_generalized_neural_hawkes_ctsm_time(
     tag can be : general, adaptive, simple
     though simple is deprecated
     '''
+    print('>>inside run_models.train_generalized_neural_hawkes_ctsm_time()')
     #TODO: pre-settings like random states
     numpy.random.seed(
         input_train['seed_random']
@@ -1257,6 +1258,7 @@ def train_generalized_neural_hawkes_ctsm_time(
         data_process.prune_stream(prune_stream)
     #
     #TODO: build the model
+    print (">>dataprocessing done, back in run_models.py")
     print "building model ... "
 
     compile_start = time.time()
@@ -1290,6 +1292,8 @@ def train_generalized_neural_hawkes_ctsm_time(
             model_settings
         )
     elif tag_neural_type == 'adaptive':
+        print ">>tag type is adaptive"
+
         control = controllers.ControlNeuralHawkesAdaptiveBaseCTSM_time(
             model_settings
         )
@@ -1302,8 +1306,8 @@ def train_generalized_neural_hawkes_ctsm_time(
     compile_time = compile_end - compile_start
 
     #'''
-
-    print "model finished, comilation time is ", round(compile_time, 0)
+    print ">> Back in run_models.py"
+    print "model finished, compilation time is ", round(compile_time, 0)
 
     #TODO: start training, define the training functions
     print "building training log ... "
@@ -1325,10 +1329,14 @@ def train_generalized_neural_hawkes_ctsm_time(
         #TODO: shuffle the training data and train this epoch
         data_process.shuffle_train_data()
         #
+        # print('>> \n data_process.lens = {}, \n list_idx = {}, \n dim_process = {} \n max_nums = {}'.format(data_process.lens, data_process.list_idx, data_process.dim_process, data_process.max_nums))
+        # print(' length of data[\'train\'] = {}'.format(len(data_process.data['train'])))
+        # print(' batch size = {}'.format(data_process.size_batch))
+        # print('>> data_process.max_nums[\'train\'] = {}'.format(data_process.max_nums['train']))
         for step_train in range(data_process.max_nums['train'] ):
             #
             train_start = time.time()
-            #print "the step is ", step
+            # print "the step is ", step
             #
             data_process.process_data(
                 tag_batch = 'train',
@@ -1378,7 +1386,7 @@ def train_generalized_neural_hawkes_ctsm_time(
                     data_process.seq_mask_numpy,
                     time_diffs_numpy
                 )
-                #print "gradient absoluate value : ", grad_numpy
+                # print "gradient absoluate value : ", grad_numpy
             #
             #
             log_dict['iteration'] += 1
@@ -1418,14 +1426,15 @@ def train_generalized_neural_hawkes_ctsm_time(
                 (train_end - train_start)*log_dict['track_period'], 0
             )
             #
-            if step_train % 10 == 9:
-                print "in training, the step is out of ", step_train, data_process.max_nums['train']
+            if step_train % 20 == 19:
+                print "training, in step {} out of {}".format( step_train, data_process.max_nums['train'])
+                # print ">> total log likelihood = ", total_log_likelihood
             ########
             # Now we track the performance and save the model for every # batches, so that we do not miss the convergence within the epoch -- one epoch is too large sometimes
             ########
             if log_dict['iteration'] % log_dict['track_period'] == 0:
                 #TODO: go through the dev data and calculate the dev metrics
-                print "Now we start validating after batches ", log_dict['track_period']
+                print "Now we start validating after {} batches ".format(log_dict['track_period'])
                 dev_start = time.time()
                 #
                 #TODO: get the dev loss values
@@ -1504,7 +1513,7 @@ def train_generalized_neural_hawkes_ctsm_time(
                     total_square_errors_dev += square_errors_numpy
                     #
                     if step_dev % 10 == 9:
-                        print "in dev, the step is out of ", step_dev, data_process.max_nums['dev']
+                        print "dev, in step {} out of {}".format(step_dev, data_process.max_nums['dev'])
                 #
                 #
                 log_dict['tracked']['dev_log_likelihood'] = round(

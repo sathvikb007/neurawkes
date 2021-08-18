@@ -63,6 +63,7 @@ class SGD(object):
 class Adam(object):
     # Adam optimizer
     def __init__(self, adam_params=None):
+        print ">> In optimizers.Adam"
         print "creating Adam optimizer ... "
         # set hyper params, and use the values in paper as default
         if adam_params == None:
