@@ -18,9 +18,19 @@ models/*/*.pkl
 *.pyc
 *.txt
 *.out
-*.pkl
 
-data/*
+data/data_bookorder/*
+data/data_conttime/*
+data/data_epic/*
+data/data_hawkes/*
+data/data_meme/*
+data/data_mimic/*
+data/data_poisson/*
+data/data_so/*
+
+results*
+tracks*
+
 *.DS_Store
 
 ####

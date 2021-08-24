@@ -368,6 +368,7 @@ class ControlNeuralHawkesAdaptiveBaseCTSM_time(object):
         #
         #
         print('>> settings[\'model\'] = {}'.format(settings['model']))
+        print('>> settings.keys() = {}'.format(settings.keys()))
         if settings['model'] == 'neuraladapttime':
             self.hawkes_ctsm = models.NeuralHawkesAdaptiveBaseCTSM_time(
                 settings
@@ -411,6 +412,7 @@ class ControlNeuralHawkesAdaptiveBaseCTSM_time(object):
                 self.seq_sims_index_in_hidden,
                 self.seq_sims_mask
             )
+            
         else:
             print "train with prediction ... "
             #TODO: need to add switch for less memory
